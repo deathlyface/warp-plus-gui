@@ -8,6 +8,13 @@ import urllib.request, json, string, random
 
 app = Flask(__name__)
 
+# IF YOU GET 403 FORBIDDEN ON CONSOLE, YOUR IP IS BLOCKED BY CLOUDFLARE
+# IF proxy_enabled IS TRUE, IT WILL USE PROXY FROM GETPROXYLIST.COM
+proxy_enabled = True
+
+# SET MAXIMUM NUMBER OF RETRY IF REQUEST IS FAILED
+max_retry = 5
+
 def randomString(length):
 	letters = string.ascii_letters + string.digits
 	return ''.join(random.choice(letters) for i in range(length))
@@ -38,23 +45,39 @@ def getData(uid):
 		'User-Agent': 'okhttp/3.12.1'
 	}
 	req = urllib.request.Request(url, data, headers)
-	response = urllib.request.urlopen(req)
-	status_code = response.getcode()
-	return True if status_code == 200 else False
+	if (proxy_enabled):
+		with urllib.request.urlopen('https://api.getproxylist.com/proxy?protocol[]=http&minDownloadSpeed=400&anonymity[]=high%20anonymity&allowsCustomHeaders=1&allowsPost=1&allowsHttps=1&maxSecondsToFirstByte=1') as response:
+			proxy = json.loads(response.read())
+			req.set_proxy("{}:{}".format(proxy["ip"], proxy["port"]), proxy["protocol"])
+	try:
+		response = urllib.request.urlopen(req)
+		status_code = response.getcode()
+		return True if status_code == 200 else False
+	except Exception as e:
+		print(e)
+		return False
 
 @app.route("/")
 def root():
-    return render_template("index.html", host=request.host_url)
+    return render_template("index.html", proxy=proxy_enabled, host=request.host_url)
 
 @app.route("/get")
 def get():
 	referrer = request.args["uid"]
-	if getData(referrer):
-		return render_template("index.html", host=request.host_url, color="green", success=str(datetime.utcnow())[:-7] + " UTC: Successfully added 1GB Warp+ data.")
-	else:
-		return render_template("index.html", host=request.host_url, color="red", success=str(datetime.utcnow())[:-7] + " UTC: Failed to add 1GB Warp+ data.")
+
+	for x in range(max_retry):
+		success = getData(referrer)
+		if success:
+			return render_template("index.html", host=request.host_url, proxy=proxy_enabled, color="green", success=str(datetime.utcnow())[:-7] + " UTC: Successfully added 1GB Warp+ data.")
+
+	return render_template("index.html", host=request.host_url, proxy=proxy_enabled, color="red", success=str(datetime.utcnow())[:-7] + " UTC: Failed to add 1GB Warp+ data.")
 
 @app.route("/getjson")
 def getjson():
 	referrer = request.args["uid"]
-	return jsonify({"success": getData(referrer)})
+	for x in range(max_retry):
+		success = getData(referrer)
+		if success:
+			return jsonify({"success": success, "proxy": proxy_enabled})
+
+	return jsonify({"success": success, "proxy": proxy_enabled})

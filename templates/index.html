@@ -15,6 +15,7 @@
         <input type="text" name="uid" placeholder="1.1.1.1 Client ID">
         <input type="submit">
     </form>
+    <p style="color: orange;">{{ "Proxy is ACTIVE. Requests might be slower." if proxy == True}}</p>
     <p style="color: {{ color }};">{{ success }}</p>
     <p>Tip: Set up an IFTTT applet to automate adding a gigabyte of data. Use webhook: </p>
     <code>GET {{ host }}getjson?uid=&lt;Your 1.1.1.1 Client ID&gt;</code>
