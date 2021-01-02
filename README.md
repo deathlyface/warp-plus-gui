@@ -13,6 +13,16 @@ Currently hosted at repl.it: https://warp-plus.deathlyf.com/
 GET /getjson?uid=<Your 1.1.1.1 Client ID>
 ```
 
+## Tip
+Set up an IFTTT applet. Add 1GB by clicking a button widget on your phone.
+
+IF: Button widget (Button press)
+
+THEN: Webhooks (Make a web request)
+- URL: https://warp-plus.deathlyf.com/getjson?uid=<Your 1.1.1.1 Client ID>
+- Method: GET
+- Content Type and Body: Leave empty
+
 ## How To Host
 1. Install the requirements
 
