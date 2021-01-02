@@ -43,3 +43,6 @@ max_retry = 5
 ```
 flask run
 ```
+
+## Note
+Even though this tool is free, please consider buying the WARP+ subscription. This allows Cloudflare to build better infrastructure and secure more website.
