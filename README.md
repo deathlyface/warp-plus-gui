@@ -35,12 +35,24 @@ pip3 install -r requirements.txt
 Open the `app.py` file using your favorite editor.
 
 ### Proxy (default=True)
+Proxy will be retrieved from getproxylist every time a request is made.
 ```python
 # If Cloudflare block your IP, enable proxy by setting proxy_enabled to true
 proxy_enabled = True
 
 # If you don't want to proxy your request, set proxy_enabled to false
 proxy_enabled = False
+```
+
+### Custom Proxy (default=Off)
+Have your own proxy? Set `proxy_enabled` to True, then set the host and protocol in `custom_proxy`.
+Your proxy must support custom header, post request, and http proxy is preferred.
+```python
+# Custom proxy is ON
+custom_proxy = {"host": "ip:port", "protocol": "http"}
+
+# Custom proxy is OFF
+custom_proxy = {}
 ```
 
 ### Max Retry (default=5)
