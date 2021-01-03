@@ -8,12 +8,20 @@ import urllib.request, json, string, random
 
 app = Flask(__name__)
 
-# IF YOU GET 403 FORBIDDEN ON CONSOLE, YOUR IP IS BLOCKED BY CLOUDFLARE
-# IF proxy_enabled IS TRUE, IT WILL USE PROXY FROM GETPROXYLIST.COM
+# ENABLE PROXY (BYPASS CLOUDFLARE BLOCK)
 proxy_enabled = True
+
+# CUSTOM STATIC PROXY (PROXY_ENABLED MUST BE TRUE)
+# PROXY MUST SUPPORT CUSTOM HEADER AND POST REQUEST. TESTED WITH HTTP PROTOCOL.
+# LEAVE BLANK TO USE GETPROXYLIST.COM
+# custom_proxy = {"host": "144.91.82.190:3128", "protocol": "http"} 
+custom_proxy = {}
+
 
 # SET MAXIMUM NUMBER OF RETRY IF REQUEST IS FAILED
 max_retry = 5
+
+print("Running warp-plus-flask with proxy={}, custom_proxy={}, max_retry={}".format(proxy_enabled, False if len(custom_proxy) == 0 else True, max_retry))
 
 def randomString(length):
 	letters = string.ascii_letters + string.digits
@@ -45,10 +53,19 @@ def getData(uid):
 		'User-Agent': 'okhttp/3.12.1'
 	}
 	req = urllib.request.Request(url, data, headers)
-	if (proxy_enabled):
-		with urllib.request.urlopen('https://api.getproxylist.com/proxy?protocol[]=http&minDownloadSpeed=400&anonymity[]=high%20anonymity&allowsCustomHeaders=1&allowsPost=1&allowsHttps=1&maxSecondsToFirstByte=1') as response:
-			proxy = json.loads(response.read())
-			req.set_proxy("{}:{}".format(proxy["ip"], proxy["port"]), proxy["protocol"])
+	if proxy_enabled:
+		if len(custom_proxy) == 0:
+			try:
+				with urllib.request.urlopen('https://api.getproxylist.com/proxy?protocol[]=http&minDownloadSpeed=400&anonymity[]=high%20anonymity&allowsCustomHeaders=1&allowsPost=1&allowsHttps=1&maxSecondsToFirstByte=1') as response:
+					proxy = json.loads(response.read())
+					req.set_proxy("{}:{}".format(proxy["ip"], proxy["port"]), proxy["protocol"])
+			except:
+				print("Failed to set proxy from getproxylist.com.")
+		else:
+			try:
+				req.set_proxy(custom_proxy["host"], custom_proxy["protocol"])
+			except:
+				print("Failed to set custom proxy.")
 	try:
 		response = urllib.request.urlopen(req)
 		status_code = response.getcode()
