@@ -32,7 +32,7 @@ pip3 install -r requirements.txt
 
 2. Configuration (Optional)
 
-Open the `app.py` file using your favorite editor.
+Open the `warp_config.py` file using your favorite editor.
 
 ### Proxy (default=True)
 Proxy will be retrieved from getproxylist every time a request is made.

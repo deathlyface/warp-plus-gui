@@ -4,22 +4,10 @@
 
 from flask import Flask, request, render_template, jsonify
 from datetime import datetime
+from warp_config import *
 import urllib.request, json, string, random
 
 app = Flask(__name__)
-
-# ENABLE PROXY (BYPASS CLOUDFLARE BLOCK)
-proxy_enabled = True
-
-# CUSTOM STATIC PROXY (PROXY_ENABLED MUST BE TRUE)
-# PROXY MUST SUPPORT CUSTOM HEADER AND POST REQUEST. TESTED WITH HTTP PROTOCOL.
-# LEAVE BLANK TO USE GETPROXYLIST.COM
-# custom_proxy = {"host": "144.91.82.190:3128", "protocol": "http"} 
-custom_proxy = {}
-
-
-# SET MAXIMUM NUMBER OF RETRY IF REQUEST IS FAILED
-max_retry = 5
 
 print("Running warp-plus-flask with proxy={}, custom_proxy={}, max_retry={}".format(proxy_enabled, False if len(custom_proxy) == 0 else True, max_retry))
 
