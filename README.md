@@ -4,7 +4,7 @@ Easily add Warp+ data through a Flask web app or an API.
 ![](https://raw.githubusercontent.com/deathlyface/warp-plus-gui/master/static/screenshot.png)
 
 ## Demo
-Currently hosted at repl.it: https://warp-plus.deathlyf.com/
+Currently self-hosted: https://warp-plus.deathlyf.com/
 
 ## How To Use
 1) Easy: Simply fill your Client ID and click Submit!
