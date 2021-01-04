@@ -1,4 +1,4 @@
-# warp-plus-flask
+# warp-plus-gui
 # Author: deathlyface
 # Modified from: ALIILAPRO/warp-plus-cloudflare
 
@@ -9,7 +9,7 @@ import urllib.request, json, string, random
 
 app = Flask(__name__)
 
-print("Running warp-plus-flask with proxy={}, custom_proxy={}, max_retry={}".format(proxy_enabled, False if len(custom_proxy) == 0 else True, max_retry))
+print("Running warp-plus-gui with proxy={}, custom_proxy={}, max_retry={}".format(proxy_enabled, False if len(custom_proxy) == 0 else True, max_retry))
 
 def randomString(length):
 	letters = string.ascii_letters + string.digits

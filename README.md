@@ -1,7 +1,7 @@
-# warp-plus-flask
+# warp-plus-gui
 Easily add Warp+ data through a Flask web app or an API. 
 
-![](https://raw.githubusercontent.com/deathlyface/warp-plus-flask/master/static/screenshot.png)
+![](https://raw.githubusercontent.com/deathlyface/warp-plus-gui/master/static/screenshot.png)
 
 ## Demo
 Currently hosted at repl.it: https://warp-plus.deathlyf.com/
