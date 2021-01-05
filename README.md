@@ -3,6 +3,9 @@ Easily add Warp+ data through a Flask web app or an API.
 
 ![](https://raw.githubusercontent.com/deathlyface/warp-plus-gui/master/static/screenshot.png)
 
+## Blog Post
+https://blog.deathlyf.com/2021/01/05/easy-way-to-get-unlimited-warp-plus-data/
+
 ## Demo
 Currently self-hosted: https://warp-plus.deathlyf.com/
 
@@ -14,14 +17,7 @@ GET /getjson?uid=<Your 1.1.1.1 Client ID>
 ```
 
 ## Tip
-Set up an IFTTT applet. Add 1GB by clicking a button widget on your phone.
-
-IF: Button widget (Button press)
-
-THEN: Webhooks (Make a web request)
-- URL: https://warp-plus.deathlyf.com/getjson?uid=<Your 1.1.1.1 Client ID>
-- Method: GET
-- Content Type and Body: Leave empty
+After claiming for the first time, the URL should changed. Add the page to your home screen, so you can easily add 1GB by clicking the shortcut. 
 
 ## How To Host
 1. Install the requirements
