@@ -4,10 +4,10 @@ Easily add Warp+ data through a Flask web app or an API.
 ![](https://raw.githubusercontent.com/deathlyface/warp-plus-gui/master/static/screenshot.png)
 
 ## Blog Post
-https://blog.deathlyf.com/2021/01/05/easy-way-to-get-unlimited-warp-plus-data/
+https://blog.brianthe.dev/2021/01/05/easy-way-to-get-unlimited-warp-plus-data/
 
 ## Demo
-Currently self-hosted: https://warp-plus.deathlyf.com/
+Currently self-hosted: https://warp-plus.brianthe.dev/
 
 ## How To Use
 1) Easy: Simply fill your Client ID and click Submit!
